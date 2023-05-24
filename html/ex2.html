@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en/ua">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/tasks.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper-third">
+    <label>Choose color</label>
+    <input type="color" id="color">
+    <button class="wrapper-third__button">Click</button>
+
+</div>
+<script>
+    //Задача 11. Користувач може змінювати колір фону, що вибирає користувач з використанням
+    // <input type="color">.
+    //////Зберігати цей колір і відновлювати при наступному відкритті. Також зберігати і відображати кількість змін протягом одного сеансу.
+
+    const button = document.querySelector('.wrapper-third__button')
+
+    function saveData(color) {
+        const userColor = document.getElementById(color).value
+
+
+        localStorage.setItem('backgroundColor', userColor)
+        document.querySelector('.wrapper-third').style.backgroundColor = localStorage.getItem('backgroundColor')
+    }
+
+    function changeBackgroundColor() {
+
+        let counter = 0
+        button.addEventListener('click', () => {
+            saveData('color')
+            counter++
+            sessionStorage.setItem('clicked', counter)
+        })
+    }
+
+    changeBackgroundColor()
+    document.querySelector('.wrapper-third').style.backgroundColor = localStorage.getItem('backgroundColor')
+</script>
+</body>
+</html>

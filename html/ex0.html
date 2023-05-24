@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/tasks.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper-first">
+   <div class="wrapper-first__block"></div>
+   <div class="wrapper-first__block wrapper-first__block--second"></div>
+    <div class="wrapper-first__block wrapper-first__block--third"></div>
+    <div class="wrapper-first__block wrapper-first__block--forth"></div>
+</div>
+<script>
+   'use string'
+   ///================ Регулярні вирази ===============
+//    Задача  1. Дано масив рядкових представлень чисел (тобто масив чисел у лапках (string). З використанням перевірки за допомогою регулярних виразів і груп підрахувати кількість тих, у яких перша і остання літери однакові.
+   function createElement(list) {
+       const numberContainer = document.createElement('p')
+       numberContainer.innerHTML = `Original number list: ${list}`
+
+       return numberContainer
+   }
+   function getTheSameNumberInTheStartInTheEnd(list) {
+       let result = document.createElement('p')
+
+
+       return result.innerHTML =`The first number in the start is the same with the last number list: ${list.match(/\b(\d)(\d*?)\1\b/g)}`
+   }
+   let numberList = ['5645','566','79767','342','454','32223','1111','78787','3976','444']
+   numberList = numberList.join(' ')
+
+
+   document.querySelector('.wrapper-first__block').append(createElement(numberList),getTheSameNumberInTheStartInTheEnd(numberList))
+   console.log(getTheSameNumberInTheStartInTheEnd(numberList))
+
+//    Задача 2. Замінити номер розділяючи послідовності цифр дефісом згідно з форматом
+//    0504546626   🡪  +380-50-45-466-26
+
+
+   function changeNumber(number,tc) {
+       const numberContainer = document.createElement('p')
+       numberContainer.innerHTML = `${number} => ${number.replace(/(\d)(\d{2})(\d{2})(\d{3})(\d{2})/, '+38$1-$2-$3-$4-$5')}`
+
+       document.querySelector(tc).append(numberContainer)
+   }
+   let number = '0504546626'
+
+   changeNumber(number,'.wrapper-first__block--second')
+   console.log(number)
+
+//    Задача 3. Після кожного значення року після 2000 року додати «р.»
+
+   function addTextToStr(str,tc) {
+       const strContainer = document.createElement('p')
+       strContainer.innerHTML = `${str} => ${str.replace(/(\b2\d{3}\b)/g,'$& year')}`
+
+       document.querySelector(tc).append(strContainer)
+   }
+   let str = 'I was born in 1999. In 2005 i went to school and in 2016 i finished it.'
+   addTextToStr(str,'.wrapper-first__block--third')
+
+//    «Я народився 2001, а в школі пішов 2007» 🡪 «Я народився 2001р., а в школі пішов 2007р.»
+// Задача 4. Вводиться велике число. Кожні 3 розряди відділяти пробілом.
+
+//    7457896524 🡪 7 457 896 524
+   function changeNumberStr(numStr,tc) {
+       const numStrContainer = document.createElement('p')
+       numStrContainer.innerHTML = `${numStr} => ${numStr.replace(/(\d)(\d{3})(\d{3})(\d{3})/,'$1 $2 $3 $4')}`
+
+       document.querySelector(tc).append(numStrContainer)
+   }
+
+   let numStr = '7457896524'
+   changeNumberStr(numStr,'.wrapper-first__block--forth')
+
+</script>
+
+</body>
+</html>

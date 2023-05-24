@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/tasks.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper-second">
+    <div class="wrapper-second__block"></div>
+    <div class="wrapper-second__block wrapper-second__block--first"></div>
+
+</div>
+<script>
+    'use string'
+
+    // Задача 5. Дано список з віком учнів. Підрахувати скільки разів кожне значення зустрічається у списку і максимальне.
+    function getRandomNumber(min, max) {
+        return min + Math.floor(Math.random() * (max - min + 1))
+    }
+
+    function createNumberList(value) {
+        let ageList = []
+        for (let i = 0; i < value; i++) {
+            ageList.push(getRandomNumber(6, 17))
+        }
+
+        return ageList
+    }
+
+    function getAmountOfTheSameAge(ageList) {
+        let map = new Map()
+
+        for (let age of ageList) {
+            let result = map.get(age) || 0
+            map.set(age, result + 1)
+        }
+        return map
+    }
+
+    function displayElements(tc) {
+        const ageList = createNumberList(20)
+        const amountOfAge = getAmountOfTheSameAge(ageList)
+        const ageListContainer = document.createElement('p')
+        ageListContainer.innerHTML = `Pupils' age list: ${ageList}`
+
+        const amountOfAgeContainer = document.createElement('ul')
+        for (let item of amountOfAge) {
+            item = item.join(' - ')
+            let li = document.createElement('li')
+            li.innerHTML = `${item} times`
+            amountOfAgeContainer.append(li)
+        }
+
+
+        document.querySelector(tc).append(ageListContainer, amountOfAgeContainer)
+    }
+
+    displayElements('.wrapper-second__block')
+
+    //     Задача 6.  Дано масив книг (назва, рік видання, автор). Підрахувати кількість книг для кожного автора.
+    class Author {
+        constructor(name, birthYear) {
+            this.name = name
+            this.birthYear = birthYear
+        }
+
+        toString() {
+            return `${this.name} - ${this.birthYear}`
+        }
+    }
+
+    class Book {
+        constructor(author, title, prodYear) {
+            this.author = author
+            this.title = title
+            this.prodYear = prodYear
+
+        }
+
+    }
+
+    const library = [
+        new Book(new Author('Anna', 2423), 'Just', 1874),
+        new Book(new Author('Anna', 2423), 'Just do it', 1994),
+        new Book(new Author('Victor', 2423), 'Just fort', 1924),
+        new Book(new Author('Anna', 2423), 'Just poop', 1494),
+        new Book(new Author('Victor', 2423), 'Just pee', 1584),
+        new Book(new Author('Anna', 2423), 'Just jump', 1111)
+    ]
+    //console.log(library)
+    let map = new Map()
+
+    for (let item of library) {
+        let result = map.get(item.author.name) || 0
+
+        map.set(item.author.name, result + 1)
+    }
+    //console.log(map)
+
+    //     Задача 7. Дано інформацію про відвідувачів деякого сайту (для кожного відвідувача зберігається логін). Підрахувати для кожного клієнта кількість відвідувань.
+    function getAmountOfUserSiteVisit(userNickNameList) {
+        let map = new Map()
+        //console.log(userNickNameList)
+        for (let item of userNickNameList) {
+            let result = map.get(item) || 0
+
+            map.set(item, result + 1)
+        }
+        return map
+    }
+
+    function render(tc, list) {
+        const amountOfUserSiteVisit = getAmountOfUserSiteVisit(list)
+
+        const userNicknameContainer = document.createElement('p')
+        userNicknameContainer.innerHTML = `Nicknames: ${list}`
+
+        const listContainer = document.createElement('ul')
+        for (let item of amountOfUserSiteVisit) {
+            item = item.join(' - ')
+            let li = document.createElement('li')
+            li.innerHTML = `${item}`
+            listContainer.append(li)
+        }
+        document.querySelector(tc).append(userNicknameContainer, listContainer)
+    }
+
+    const userList = ['katya99', 'oskar86', 'oleg_durak', 'katya99', 'oskar86', 'oleg_durak', 'oleg_durak', 'katya99', 'oleg_durak', 'athena_cute', 'katya99', 'athena_cute', 'oskar86', 'athena_cute', 'athena_cute', 'oskar86', 'athena_cute', 'athena_cute']
+
+    render('.wrapper-second__block--first', userList)
+
+    //     Задача 8. Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів, та кількість студентів кожного з курсів.
+    class Student {
+        constructor(name, course, faculty) {
+            this.name = name
+            this.course = course
+            this.faculty = faculty
+        }
+    }
+
+    const studentList = [
+        new Student('Katya', 2, 'Philology'),
+        new Student('Oskar', 3, 'History'),
+        new Student('Oleg', 1, 'Philology'),
+        new Student('Athena', 2, 'Math'),
+        new Student('Maria', 3, 'Philology'),
+        new Student('Petro', 4, 'History'),
+        new Student('Vasyl', 4, 'Math'),
+        new Student('Olga', 2, 'Philology'),
+        new Student('Ivan', 3, 'Sport'),
+        new Student('Anna', 1, 'Philology'),
+        new Student('Taras', 2, 'History')
+    ]
+
+    function iDontKnowHowToNameIt() {
+        let facultyAmount = new Map()
+        let studentAmount = new Map()
+
+        for (let item of studentList) {
+            let faculty = facultyAmount.get(item.faculty) || 0
+            facultyAmount.set(item.faculty, faculty + 1)
+
+            let student = studentAmount.get(item.course) || 0
+            studentAmount.set(item.course, student + 1)
+        }
+        return [facultyAmount, studentAmount]
+
+    }
+
+    let [facultyAmount, studentAmount] = iDontKnowHowToNameIt()
+
+    //console.log(facultyAmount)
+    //console.log(studentAmount)
+
+
+    //     Задача 9. Дано масив показів температур. Підрахувати кількість входжень кожного із показів
+    let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
+
+    function getAmountOfTemperatures(temperatures) {
+        let amountOfTemperatures = new Map()
+
+        for (let item of temperatures) {
+            let result = amountOfTemperatures.get(item) || 0
+            amountOfTemperatures.set(item, result + 1)
+        }
+        return amountOfTemperatures
+    }
+    const amountOfTemperatures = getAmountOfTemperatures(temperatures)
+    //console.log(amountOfTemperatures)
+    // Заокруглити вверх значення та підрахувати кількість різних показів.
+    function createNewTemperatureList(list) {
+        const newTemperatures = []
+        for (let item of temperatures){
+            newTemperatures.push(Math.ceil(item))
+        }
+        return newTemperatures
+    }
+    const newTemperatures = createNewTemperatureList(temperatures)
+
+    const set = new Set(newTemperatures)
+    //console.log(set.size)
+
+
+
+    //Задача 10 Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії. Підрахувати скільки студентів з гуртка з історії також відвідують гурток з математики. Також підрахувати скільки всього студентів відвідують хоча б один гурток.
+    const historyStudentList = ['Lidström','Stelmakhova','Romanov','Ryzhkin','Lepeshko','Turenko']
+    const MathStudentList = ['Zubko','Stelmakhova','Avramchuk','Ivanov','Lepeshko','Protasov']
+
+    let setMath = new Set()
+    for(let item of MathStudentList){
+        setMath.add(item)
+    }
+    let setHist = new Set()
+    for (let item of historyStudentList){
+        setHist.add(item)
+    }
+    let count = 0
+    for (let item of MathStudentList){
+        if(setHist.has(item)) count++
+    }
+    let totalCourse = historyStudentList.concat(MathStudentList)
+    let totalSet = new Set()
+    for(const item of totalCourse){
+        totalSet.add(item)
+    }
+
+</script>
+</body>
+</html>

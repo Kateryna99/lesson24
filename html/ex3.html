@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/tasks.css">
+    <title>Document</title>
+
+</head>
+<body>
+<div class="wrapper-forth">
+
+</div>
+
+
+<script>
+    'use strict'
+    ///////////Задача 12. Зберігати у пам’яті список справ, які користувачу треба виконати (зберігати у localStorage). Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm). Якщо користувач натискає на «Ок», то видаляти цю задачу.
+
+    let toDoList = ['Say to Oleg he is durak', 'Kiss Oskar', 'Walk Athena', 'Water my plants']
+
+    function saveItem(list) {
+        localStorage.setItem('task', JSON.stringify(list))
+    }
+
+    saveItem(toDoList)
+
+
+    function getRandomIndex(list) {
+        const randomIndex = Math.floor(Math.random() * list.length)
+
+        return randomIndex
+    }
+
+    function play() {
+        let tasks = JSON.parse(localStorage.getItem('task'))
+        let interval = setInterval(() => {
+            const randomIndex = getRandomIndex(tasks)
+            console.log(tasks)
+            if (confirm(tasks[randomIndex])) {
+                tasks.splice(randomIndex, 1)
+                saveItem(tasks)
+            }
+            if (tasks.length === 0) {
+                clearInterval(interval)
+            }
+        }, 3000)
+
+    }
+
+    play()
+
+
+</script>
+</body>
+</html>
